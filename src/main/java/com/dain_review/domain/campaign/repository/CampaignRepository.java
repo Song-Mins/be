@@ -46,6 +46,7 @@ public interface CampaignRepository
     @Query(
             "select C from Campaign C where C.label= 'PREMIUM'"
                     + "and C.campaignState = 'RECRUITING'"
+                    + "and c.isDeleted = false"
                     + "order by C.pointPerPerson desc, C.applicationEndDate, C.capacity desc "
                     + "limit 8")
     List<Campaign> findPremiumCampaigns();
@@ -54,6 +55,7 @@ public interface CampaignRepository
     // todo 정렬 1.지원자 많은 순 2.모집인원 많은 순 3.승인일시 순
     @Query(
             "select C from Campaign C where C.campaignState = 'RECRUITING'"
+                    + "and c.isDeleted = false"
                     + "order by C.currentApplicants desc, C.capacity desc "
                     + "limit 8")
     List<Campaign> findPopularCampaigns();
@@ -62,6 +64,7 @@ public interface CampaignRepository
     // todo 정렬 1.모집 시작일 늦은 순 2.승인일시 순
     @Query(
             "select C from Campaign C where C.campaignState = 'RECRUITING'"
+                    + "and c.isDeleted = false"
                     + "order by C.applicationStartDate desc "
                     + "limit 4")
     List<Campaign> findNewestCampaigns();
@@ -70,6 +73,7 @@ public interface CampaignRepository
     // todo 정렬 1.모집 마감일 적게 남은 순 2.신청자 많은 순 3.승인일시 순
     @Query(
             "select C from Campaign C where C.campaignState = 'RECRUITING'"
+                    + "and c.isDeleted = false"
                     + "order by C.applicationEndDate asc, C.currentApplicants desc "
                     + "limit 4")
     List<Campaign> findImminentDueDateCampaigns();
